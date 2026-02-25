@@ -18,14 +18,29 @@ public class mainClient {
             PrintWriter pw = new PrintWriter(socket.getOutputStream(), true);
             BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
+            String[] messaggi = {
+                    "Ciao server!",
+                    "Tutto bene grazie!",
+                    "Si sto imparando Java!",
+                    "Hai ragione, sono fondamentali!",
+                    "stop"
+            };
 
-            String messaggio = "Ciao server, come stai?";
-            pw.println(messaggio);
-            System.out.println("CLIENT -> SERVER: " + messaggio);
+            for (String messaggio : messaggi) {
+                pw.println(messaggio);
+                System.out.println("CLIENT -> SERVER: " + messaggio);
 
+                if (messaggio.equalsIgnoreCase("stop")) {
+                    break;
+                }
 
-            String risposta = br.readLine();
-            System.out.println("SERVER -> CLIENT: " + risposta);
+                String risposta = br.readLine();
+                System.out.println("SERVER -> CLIENT: " + risposta);
+
+                if (risposta.equalsIgnoreCase("stop")) {
+                    break;
+                }
+            }
 
             pw.close();
             br.close();
